@@ -12,8 +12,18 @@
  */
 
 require 'vendor/autoload.php';
+require 'db.php';//here we requre the db.php where the Eloquent boostrappin has happened
 
-$departments = Department::all();
+$departments = Department::all();//lazy loading
+// $departments = Department::with('subjects');//eager loading with belonging subjects
+// var_dump($departments);//will display Department Eloquent objects in a collection
+// var_dump($departments->first()->subjects);//will display the belonging EloquentSubject object. Do not forget that the 'subjects' here are a relationship, defined in the Department model.
+
+//querybuilder experiment
+use Illuminate\Database\Capsule\Manager as Capsule;
+
+$department = Capsule::table('departments')->where('id', 1)->get();
+var_dump($department);
 
 ?>
 
